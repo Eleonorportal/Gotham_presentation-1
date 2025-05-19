@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gotham Cite - Design Presentation</title>
+    <link rel="icon" href="icon_1.png" type="image/png">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            margin: 0;
+            padding: 0; /* Removed padding-top here, will be handled by main-content-area */
+            background-color: #000000; 
+            color: #e0e0e0; 
+        }
+
+        /* Navigation Bar Styles */
+        .top-nav {
+            background-color: #111111; /* Slightly lighter than body for visibility */
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .top-nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to multiple lines */
+            justify-content: center;
+        }
+        .top-nav li {
+            margin: 5px 10px; /* Spacing for wrapped items */
+        }
+        .top-nav a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .top-nav a:hover, .top-nav a.active { /* Style for active link can be added with JS if needed */
+            background-color: #e50914;
+            color: #ffffff;
+        }
+
+        .main-content-area { /* Wrapper for content below nav */
+             padding-top: 20px; /* Initial padding in case nav isn't sticky or for first load */
+        }
+
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto 40px auto; /* Adjusted top margin to 0 because of main-content-area */
+            padding: 20px;
+        }
+        .document-main-title-block {
+            text-align: center;
+            margin-bottom: 40px;
+            /* Add padding top to account for sticky nav when jumping to an anchor at the top of page-container */
+            /* This might be better handled by adding IDs to sections directly and adjusting scroll-margin-top on them */
+        }
+        .document-main-title-block h1 {
+            color: #f5f5f5; 
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .document-main-title-block .subtitle {
+            color: #aaaaaa;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        .intro-paragraphs { /* Added ID for potential navigation */
+            padding-top: 1px; /* Small padding to ensure anchor is below nav */
+        }
+        .intro-paragraphs p { 
+            color: #cccccc;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .section {
+            margin-bottom: 60px; /* Increased for better visual separation */
+            padding-top: 70px;  /* Increased to offset sticky nav height + some extra space */
+            margin-top: -50px; /* Negative margin to pull it up, so padding-top is true start */
+            border-top: 2px solid #282828; /* More pronounced border */
+        }
+        .section:first-of-type { /* First actual content section after intro */
+            border-top: none; /* No border for the very first actual section if intro is not counted */
+        }
+        .intro-paragraphs + .section { /* if intro exists, first section after it no border */
+             border-top: none;
+        }
+
+        .section-title {
+            color: #e50914; 
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            font-weight: 500;
+        }
+        .subsection-title { 
+            color: #dddddd;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+        img.section-image {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;    
+            display: block;  
+            margin-bottom: 30px;
+            border: 1px solid #2c2c2c; 
+            border-radius: 4px; 
+        }
+        p, li {
+            color: #dcdcdc; 
+            text-align: justify;
+        }
+        ul, ol { 
+            padding-left: 25px; 
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        ul li { 
+            list-style-type: disc; 
+        }
+        .note {
+            font-style: italic;
+            color: #b0b0b0;
+            margin-top: 30px;
+            border-left: 3px solid #555555;
+            padding: 15px;
+            background-color: #0f0f0f; 
+            border-radius: 3px;
+        }
+        .note p {
+            margin-bottom: 10px;
+        }
+        .note p:last-child {
+            margin-bottom: 0;
+        }
+        .numbered-subsection-title { 
+            font-size: 1.1em; 
+            color: #c0c0c0; 
+            margin-top:20px;
+            font-weight: 500;
+        }
+        .blog-article-card-description { 
+            padding-left: 20px; 
+        }
+        .blog-article-card-description li { 
+            list-style-type: "- "; 
+        }
+        .footer-contact-details ul li {
+            list-style-type: disc !important; 
+        }
+        .conclusion-text p {
+            margin-bottom: 15px;
+        }
+        .conclusion-text strong {
+            color: #e5e5e5;
+            font-weight: 500;
+        }
+        .thank-you-message {
+            text-align: center; 
+            margin-top: 50px; 
+            margin-bottom: 20px; 
+            font-style: italic; 
+            color: #cccccc;
+            font-size: 1.2em;
+        }
+        .final-logos {
+            display: block; 
+            margin: 0 auto; 
+            max-width: 400px; 
+            height: auto;
+        }
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1001; /* Above nav if nav is 1000 */
+            border: none;
+            outline: none;
+            background-color: #e50914;
+            color: white;
+            cursor: pointer;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        #backToTopBtn:hover {
+            background-color: #c40812;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav" id="topNav">
+        <ul>
+            <li><a href="#intro">Intro</a></li>
+            <li><a href="#section-01">Hero & Header</a></li>
+            <li><a href="#section-02">Menu</a></li>
+            <li><a href="#section-03">Statistics</a></li>
+            <li><a href="#section-04">About</a></li>
+            <li><a href="#section-05">Brands</a></li>
+            <li><a href="#section-06">Equipment</a></li>
+            <li><a href="#section-07">Slideshow</a></li>
+            <li><a href="#section-08">Services</a></li>
+            <li><a href="#section-09">Team</a></li>
+            <li><a href="#section-10">Blog</a></li>
+            <li><a href="#section-11">FAQ</a></li>
+            <li><a href="#section-12">Footer</a></li>
+            <li><a href="#section-13">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content-area">
+        <div class="page-container">
+
+            <div class="document-main-title-block" id="pageTop"> <!-- ID for back to top if needed -->
+                <h1>GOTHAM CITE</h1>
+                <p class="subtitle">option 1: gothamcine.framer.website</p>
+            </div>
+
+            <div class="intro-paragraphs" id="intro">
+                 <p>In the first version, while creating the design, we were more guided by the example you liked, which we sent you at the very beginning along with the logo options. It's a concise design with minimal colors, aiming visually for a monochrome (black-and-white) style, but still with the addition of red and non-monochrome images.</p>
+                 <p>The structure of both versions is more of a brief introduction and presentation of the main sections of the site and services. Since the homepage (HOME) is the first thing a visitor sees, we tried to give it a minimalist, premium look and filled it with content that can quickly familiarize the user with the main functionality and help them better navigate the catalog-style site.</p>
+            </div>
+
+            <div class="section" id="section-01">
+                <h2 class="section-title">01 HERO & HEADER</h2>
+                <img src="1.png" alt="Gotham Cine Hero Section Visual" class="section-image">
+                <h3 class="subsection-title">Composition Style:</h3>
+                <p>The main composition that greets the website visitor features a large GOTHAM CINE logo, flanked by parallel side texts and a stylized short description below, all displayed over a black-and-white video background. The entire section containing these elements has a color inversion setting, which causes the logo, text, and other elements to automatically adapt to the video's color - switching to the opposite (negative) to maintain readability against light tones (white turns to black/gray and vice versa).</p>
+                <h3 class="subsection-title">Website Header:</h3>
+                <p>The header contains three main elements that should always be accessible to the user, no matter where they are on the site:</p>
+                <ol>
+                    <li>In the top-left corner, there's the GOTHAM CINE logo, which is clickable and, when pressed, brings the user back.</li>
+                    <li>Next is the hamburger menu - two clickable lines that expand to reveal the website's navigation menu and display the other main sections of the site (they are not active yet). I'll explain the menu in more detail below.</li>
+                    <li>And finally, the search icon (a magnifying glass). For now, the search serves a decorative purpose - clicking on it opens an input field and turns the icon red (you can click anywhere outside the field to close the search). This is currently a working version of the search feature, but we haven't focused on it yet. We'll return to it later, if needed, to better adapt it to the website's style.</li>
+                </ol>
+                <div class="note">
+                    <p><strong>Initial note:</strong> I also want to remind you again that all the texts, information, or images used in the website examples are for demonstration purposes and will need to be replaced in the future. Their main goal now is to give a rough idea of the design.</p>
+                    <p>This part of the website hasn't been fully adjusted yet, so the layout may "shift" on different devices. However, it's already sufficient to evaluate the design. This is a temporary issue that will be fixed later.</p>
+                </div>
+            </div>
+            
+            <div class="section" id="section-02">
+                <h2 class="section-title">02 MENU</h2>
+                <img src="2.png" alt="Gotham Cine Menu Visual" class="section-image">
+                <h3 class="subsection-title">Regarding the menu directly in this example site:</h3>
+                <ul>
+                    <li>When you click on the hamburger, it is replaced by a cross, but this is not yet fully configured in the working version of the site (via the link you are viewing the site), currently there is just a hamburger when clicked. This is a technical detail that will be fixed later.</li>
+                    <li>In this version, the menu at the bottom also drops down links to social networks, but in the future these can be replaced with any other links or information.</li>
+                    <li>Sections are not clickable yet.</li>
+                </ul>
+                <h3 class="subsection-title">About the menu in general in both examples:</h3>
+                <h4 class="numbered-subsection-title">1. Menu appearance:</h4>
+                <p>We had several solutions for the menu:</p>
+                <ul>
+                    <li>Firstly, it would be possible to fit all menu sections (home, equipment, crew hire, blog and about) directly into the site header (like Newyorkcitycamera and Greenwoodcine) and possibly add dropdown sliders (like on Greenwood). This solution could be useful because a potential client visiting the site would immediately see all sections of the site. And this could work well if all equipment sections were visible immediately in the header (again, like on nycitycamera), but this harms the visual style and minimalism, as in our case there are quite a few site sections. For example, it still looks appropriate on nycitycamera because they don't have many sections, but in the case of greenwood - it looks unaesthetic and not dynamic: they have two rows of sections, which in our opinion is excessive and visually noisy for the site visitor. This also breaks the premium look, which can harm marketing and the first impression of a potential client.</li>
+                    <li>In our case, of course, it would be possible to place all menu sections in the site header, but we decided in favor of a premium look and did not want to clutter the visual impression.</li>
+                    <li>For now, we lean towards making the Equipment section a separate full-fledged section of the site (for example, like on bokehrentals.com) and we did not want to pull its contents into the menu (or site header) so as not to harm the design or confuse the visitor with many different sections at once. We believe that mastering the site should be gradual, and in case of a quick specific request to the site, the client will always have search at hand.</li>
+                    <li>The Vans section, if you remember, was a separate section in our original site tree, but now we lean towards combining it into the Equipment section or another suitable section.</li>
+                    <li>In the second version of the site, the menu does not work yet. It exists and somewhat resembles this menu (also opens in a slider), but we have not finished it yet.</li>
+                </ul>
+                <p style="margin-top: 25px;">All this is our initial opinion and, of course, we would like to hear what you think about the menu and sections in this context. Do you like the hidden menu, or would you prefer everything to be visible immediately in the header? How do you feel about our decision to combine some sections? We await your feedback on this issue.</p>
+            </div>
+           
+            <div class="section" id="section-03">
+                <h2 class="section-title">03 STATISTICS/KEY INDICATORS</h2>
+                <img src="3.png" alt="Gotham Cine Statistics Visual" class="section-image">
+                <h3 class="subsection-title">Rapid Value Delivery:</h3>
+                <p>Large, easily readable numbers instantly inform the visitor about the scale, experience (even if it's the experience of the team, not the newest company itself) or the quality of the services and equipment offered. This allows for a quick formation of an understanding of GOTHAM CINE's reliability and capabilities.</p>
+                <h3 class="subsection-title">Building Trust:</h3>
+                <p>Specific numbers, even if they show initial indicators (for example, the quantity of equipment units, represented brands), are perceived as facts and contribute to strengthening trust in the company.</p>
+                <h3 class="subsection-title">Visual Accent:</h3>
+                <p>This section, designed in a minimalist style with an emphasis on typography, serves as a good visual "anchor" after the dynamic Hero section. It structures information and makes it easily digestible.</p>
+                <h3 class="subsection-title">Flexibility of Content:</h3>
+                <p>The numbers and captions presented here (Leading Brands Stocked, In-house Gear Experts, Years Team Industry Exp, Rental Items in Catalog) are, of course, demonstrational, but at the launch stage (and further as the company develops) they can be adapted (changed) to emphasize precisely those strengths that are relevant for GOTHAM CINE at the given moment.</p>
+                <p style="margin-top: 20px;">Thus, this section is an interesting element for quickly positioning the company and creating a sense of professionalism and scale for the client, while remaining flexible to reflect GOTHAM CINE's actual achievements and features at any stage of development.</p>
+            </div>
+
+            <div class="section" id="section-04">
+                <h2 class="section-title">04 ABOUT</h2>
+                <img src="3-1.png" alt="Gotham Cine Is... Visual Block" class="section-image">
+                <h3 class="subsection-title">Key Message:</h3>
+                <p>The text description on the right can concisely convey the company's mission and core values. Here, the specialization in professional equipment, focus on quality (curated selection), reliability (reliability), and expert support (expert support) is emphasized. These highlighted words serve as semantic accents that the user quickly reads. The text is just an example; in the future, it can also be adapted more precisely.</p>
+                <h3 class="subsection-title">Call to Action:</h3>
+                <p>The "MORE ABOUT GOTHAM CINE" button logically directs the interested user to a more detailed "About Us" page, where more can be told about the company. This avoids overloading the main page with excessive information but provides easy access to the section.</p>
+            </div>
+
+            <div class="section" id="section-05">
+                <h2 class="section-title">05 BRANDS</h2>
+                <img src="3-3.png" alt="Gotham Cine Brands Available Visual" class="section-image">
+                <p style="margin-bottom:20px;">Next is a section demonstrating brands whose equipment is available for rent. This can be an important factor for a professional audience. This section performs the following tasks:</p>
+                <h4 class="numbered-subsection-title">1. Positioning Quality and Professionalism, as well as Social Proof (Indirect):</h4>
+                <p>Association with well-known and respected brands indirectly enhances the authority of GOTHAM CINE itself. Clients see that the company works with serious manufacturers. The section does not necessarily have to highlight only top brands (you might not have some), but simply quickly showcase any available brands. Alternatively, the heading can be changed and something else related to the available brands can be devised.</p>
+                <h4 class="numbered-subsection-title">2. Navigational Potential (Opportunity for Development):</h4>
+                <p>In the future, each logo can serve as an interactive element leading to a catalog page filtered by the products of that brand. This will significantly improve navigation for users looking for specific brands.</p>
+                <p style="margin-top: 20px;">Using official logos in a monochrome (white) design supports the overall minimalist and aesthetic feel of the site.</p>
+            </div>
+            
+            <div class="section" id="section-06">
+                <h2 class="section-title">06 EQUIPMENT CATEGORY OVERVIEW</h2>
+                <img src="4.png" alt="Gotham Cine Equipment Categories Visual" class="section-image">
+                <p>Following the general company introduction and brand demonstration, we move on to a visual acquaintance with the key equipment categories available at GOTHAM CINE. This section is designed to:</p>
+                <h4 class="numbered-subsection-title">1. Clearly Present the Assortment:</h4>
+                <p>Instead of a simple text list, we use large visual cards for each main category (CAMERAS, MONITORS & VIDEO, LENSES, LIGHTING, GRIP & SUPPORT). This allows the user to quickly "grasp" the breadth of the offered equipment.</p>
+                <h4 class="numbered-subsection-title">2. Improve Navigation:</h4>
+                <p>Each card serves as a direct link to the corresponding catalog section, simplifying the user's path to finding a specific type of equipment. This is more intuitive than just a menu.</p>
+                <h4 class="numbered-subsection-title">3. Create a Premium Impression:</h4>
+                <ul>
+                    <li><strong>Visual Style:</strong> The use of high-quality images for each category, where the category name is integrated directly into the image, creates a modern and stylish look. It is important to note that the current images on the cards are demonstrational and will be finalized/replaced with final, more polished visual solutions for each category that match the overall style.</li>
+                    <li><strong>Informativeness:</strong> Relevant tags are placed under each image (e.g., CINEMA, DSLR, FILM CAMERAS, BROADCAST for cameras), which further specify equipment subtypes within the category and can serve for quick orientation or hint at filtering possibilities in the catalog.</li>
+                    <li><strong>Brief Description:</strong> A concise description under the tags gives the user a general idea of what they will find in this section, without overloading with information.</li>
+                </ul>
+                <h4 class="numbered-subsection-title">4. Emphasize Expertise:</h4>
+                <p>Carefully selected categories and tags demonstrate that GOTHAM CINE understands the nuances of professional equipment and structures its catalog logically for specialists.</p>
+                <h4 class="numbered-subsection-title">5. Flexibility and Scalability:</h4>
+                <p>Although five main categories are currently presented, the section's structure allows for easy addition or modification in the future as the assortment expands. The section title "Some of our arsenal" also hints that this is just the tip of the iceberg, encouraging exploration of the catalog further.</p>
+                <p style="margin-top: 20px;">This section can also play a role in "warming up" the user, transitioning them from a general acquaintance with the brand to specific product categories through such visual cards.</p>
+            </div>
+
+            <div class="section" id="section-07">
+                <h2 class="section-title">07 ATMOSPHERIC SLIDESHOW</h2>
+                <img src="5.png" alt="Atmospheric Slideshow Visual" class="section-image"> <!-- Corrected image name based on previous context -->
+                <p>Between the block with equipment categories and the block representing additional services, we integrated a dynamic section that uses the effect of changing images during scrolling. This section pursues several goals:</p>
+                <h3 class="subsection-title">Creating Atmosphere and Emotional Connection:</h3>
+                <p>After more informative blocks with categories, this section is designed to immerse the user in the world of professional video production. Changing atmospheric images (backstage from filming, cinematic cityscapes, team work) create a mood and evoke associations with the creative process.</p>
+                <h3 class="subsection-title">Visual "Rest" and Attention Retention:</h3>
+                <p>The dynamics of image changes during scroll serves to retain the user's attention and makes viewing the page less monotonous. This is a kind of visual pause that refreshes perception before the next block of information.</p>
+                <h3 class="subsection-title">Reinforcing the Key Message:</h3>
+                <p>The central text block, which appears and disappears along with the slideshow, can be used for any purpose. The same applies to the images themselves; these could be your photos from various work processes or something else. Their main task here is not to convey specific information, but to work on the overall impression and aesthetics. Here, informational rest is most important.</p>
+                <h3 class="subsection-title">Smooth Transition:</h3>
+                <p>This section can also serve as a smooth visual and semantic transition from a detailed review of equipment types to a broader spectrum of services offered by the company. It is also worth clarifying that such a section can be located in another place (perhaps closer to the end of the feed), so as to also have the opportunity to slightly unload the user.</p>
+            </div>
+
+            <div class="section" id="section-08">
+                <h2 class="section-title">08 ADDITIONAL SERVICES</h2>
+                <img src="5-1.png" alt="Complete Your Production - Additional Services Visual" class="section-image"> <!-- Corrected image name -->
+                <p>After getting acquainted with the equipment arsenal, we move on to presenting the spectrum of additional services that GOTHAM CINE offers for comprehensive support of our clients' projects.</p>
+                <p>Each card uses a thematic background image that corresponds to the service, and a text block with a title and a brief description.</p>
+                <h3 class="subsection-title">Creating Clear Entry Points:</h3>
+                <p>It is assumed that each card will serve as a clickable element, leading to a separate page or section of the site where this service is described in more detail. This ensures intuitively clear navigation.</p>
+                <h3 class="subsection-title">Strengthening Brand Positioning:</h3>
+                <p>The very fact of highlighting these services in a separate, well-structured block under the general heading "Complete Your Production" effectively emphasizes GOTHAM CINE's aspiration to be not just an equipment supplier, but a comprehensive partner covering a wide range of production needs. This works for the overall perception of the brand as a reliable and versatile solution.</p>
+                <p style="margin-top: 20px;">Photos, text, and the sections themselves are also demonstrational and are again our proposal. The section can be redesigned for other sections and information.</p>
+            </div>
+            
+            <div class="section" id="section-09">
+                <h2 class="section-title">09 TEAM PRESENTATION</h2>
+                <img src="6.png" alt="Meet Our Core Crew Visual" class="section-image">
+                <p>Since GOTHAM CINE offers film crew hiring services, it was crucial not just to mention this possibility but also to personalize it by introducing potential clients to key specialists.</p>
+                <h4 class="numbered-subsection-title">1. Service Personalization:</h4>
+                <p>Instead of an abstract "crew hire" offer, we show specific people (or roles) with their specializations. This makes the service more tangible and builds more trust. Using photos (or avatars at the initial stage) and names helps to "humanize" the offer.</p>
+                <h4 class="numbered-subsection-title">2. Visual Structure and Clarity:</h4>
+                <p>Each specialist's card includes their role (e.g., Director of Photography, 1st Assistant Camera, Gaffer) and a brief description of their key skills and experience. The use of a card grid for team presentation ensures good readability and allows for easy comparison of profiles. Each card contains:</p>
+                <ul>
+                    <li>Photo/avatar of the specialist.</li>
+                    <li>A brief text description of their competencies.</li>
+                    <li>Name and position.</li>
+                    <li>An icon symbolizing their specialization (e.g., camera, lens, lighting equipment). This element further enhances visual perception and helps to quickly identify the role.</li>
+                </ul>
+                <h4 class="numbered-subsection-title">3. Call to Deeper Exploration:</h4>
+                <p>The "VIEW ALL EXPERTS" button serves as a logical call to action, inviting the user to navigate to a more detailed "Crew Hire" section page, where a full list of available specialists, their detailed resumes, portfolios, and hiring conditions can be presented.</p>
+                <h4 class="numbered-subsection-title">4. Content Scalability:</h4>
+                <p>The heading "Meet Our Core Crew" implies that this is only part of the available professionals, which allows for flexible management of the team's presentation on the main page without overloading it.</p>
+                <p style="margin-top: 20px;">We also do not rule out the possibility of doing without names and simply demonstrating a list of various possible experts for hire (if only because employees tend to change over time, or because for some other reasons you want to do without specific names). But even if so, the list can still include key possible experts without names, which can be independently changed over time.</p>
+            </div>
+
+            <div class="section" id="section-10">
+                <h2 class="section-title">10 BLOG ARTICLE ANNOUNCEMENTS</h2>
+                <img src="7.png" alt="Our Articles - Blog Announcements Visual" class="section-image">
+                <p>The blog is a component of the content strategy aimed at providing value to the audience and strengthening expert image. On the start page, we have placed a section with announcements of the latest articles to:</p>
+                <h3 class="subsection-title">Attract Attention to Content:</h3>
+                <p>Visually highlight several current publications, motivating users to go to the main blog section for a more in-depth study of topics. The blog should have a place on the start page, otherwise, there is a risk that it will simply not be noticed, as users usually come to such catalog sites with a different purpose.</p>
+                <h3 class="subsection-title">Demonstrate Expertise:</h3>
+                <p>The topics of the articles (for example, as in our demonstration) can show that GOTHAM CINE not only provides equipment but also has knowledge in the field of video production, which it is ready to share.</p>
+                <h3 class="subsection-title">Each blog article card includes:</h3>
+                <ul class="blog-article-card-description">
+                    <li>Thematic image.</li>
+                    <li>Article title (in the empty space between tags and the title, by the way, you can also use part of the text from the article, something similar is in the second version of the site design).</li>
+                    <li>Tags/Categories and Date: Elements such as "PRODUCTION TIPS", "GEAR REVIEW", "TUTORIAL" and the publication date help the user quickly navigate the type of content and its relevance. They can be hashtags for filtering.</li>
+                </ul>
+                <h3 class="subsection-title">Call to Action:</h3>
+                <p>The "ALL BLOGS" button logically leads to the main blog page, where the full archive of articles is presented.</p>
+                <h3 class="subsection-title">Section Heading:</h3>
+                <p>The phrase "Learn, create, and be inspired by Our Articles" reflects the blog's goal — not only to inform but also to motivate users to be creative.</p>
+                <p>This section serves not only to announce content but also to strengthen GOTHAM CINE's authority, as well as to attract and retain the audience by providing useful and interesting information. Another coin in the piggy bank that the user will return to the site.</p>
+                <p style="margin-top: 20px;">We also want to note the parallax effect (the effect of depth and a moving camera) that we have given to the demonstration images for this blog section. Such an effect is not necessarily to be used in the blog section for images; it might be more appropriate to do it for other images (for example, for the Equipment sections, the one above, from the “Some of our Arsenal” section). But we left this effect here for now, just to show that there is such a possibility to make dynamic "moving" images.</p>
+                <p style="margin-top: 20px;">We also want to say that the Blog section is also being successfully developed by us (The entire Blog page with all articles and their structure). There are already some developments in the design style of this site variant, so if you like this design variation, I will send you the section with the blog for review a little later.</p>
+            </div>
+
+            <div class="section" id="section-11">
+                <h2 class="section-title">11 FAQ</h2>
+                <img src="8.png" alt="FAQ Section Visual" class="section-image">
+                <p>The FAQ section is without special comments from us. This is a section with a clear function that can help users find quick answers.</p>
+                <p>In our case, there is an "accordion" animation, where the answer is revealed when the question is clicked. The questions can, of course, be very different, and it will be up to you to see which questions and answers to use in this section. For now, we have filled it with demonstration text that may be far from reality =).</p>
+            </div>
+
+            <div class="section" id="section-12">
+                <h2 class="section-title">12 FOOTER</h2>
+                <img src="8-1.png" alt="Footer Section Visual" class="section-image">
+                <p>The footer is the concluding element of every page of the site and, despite its position, carries an important navigational and informational load. In the design for GOTHAM CINE, we aimed to make it functional, stylish, and consistent with the overall branding:</p>
+                <h3 class="subsection-title">Central Accent and Call to Action:</h3>
+                <p><strong>Interactive Element (Diaphragm/Logo):</strong> The central interactive element in the form of a diaphragm with the inscription "Let's Rent" is animated and shrinks when hovered over with the cursor in the desktop version of the site. This element serves not only as a decorative detail but also as a final, memorable call to action, encouraging the user to start the rental process or interaction.</p>
+                <p>The possibility of replacing this animation with a more branded one, associated with the "G" logo, was discussed, which could further enhance brand identity, or simply with another.</p>
+                <div class="footer-contact-details">
+                    <h3 class="subsection-title">Essential Contact Information:</h3>
+                    <ul>
+                        <li>Essential contact information in the form of email and your social networks.</li>
+                        <li>Duplicating key site sections in the footer is standard practice and improves navigation, allowing the user to easily go to the desired section without scrolling the page up.</li>
+                        <li>Also, at the very bottom, there is a large GOTHAM CINE inscription in the form of a running line that once again reminds of the brand.</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 20px;">The footer is designed not just to be the "end of the page," but a useful and informative space that provides the user with necessary links, contacts, and a final stimulus for interaction, while maintaining brand integrity.</p>
+            </div>
+
+            <div class="section" id="section-13">
+                <h2 class="section-title">13 IMPORTANT CONCLUSION</h2>
+                <div class="conclusion-text">
+                    <p>We aimed to create a design characterized by a dark color palette, accent use of red, clean typography, and an abundance of "air," creating a sense of premium quality. But here's what else can be clarified:</p>
+                    <p><strong>Firstly, colors:</strong> here you can reduce the amount of red color and use it even less often, thereby moving to a more monochrome color palette, which will look even more minimalistic.</p>
+                    <p><strong>Fonts:</strong> they are also not final yet; further close attention will be paid to them, as this is an important component of the design. Also, within Tilda, the font package will differ from the font package provided in Framer, but we will look for and select the most suitable or solutions you like.</p>
+                    <p><strong>Structure on the main page:</strong> It is also not final, as I said, but now we wanted to create a page that can effectively introduce the user to the site, direct them, and help them on the path of exploring content and functionality. After creating the other main sections of the site, we will return to the main page more than once and supplement/change it. In general, of course, it can already be supplemented with missing sections, but we would like to have all the information and have a complete picture to make changes effectively. In any case, in the second version of the site, which we also provided you - the number of sections on the main page is slightly more expanded and, if desired, we could transfer these sections from there to this design (if you like it more), or recreate something similar here. And for now, the existing sections can be swapped, new sections added, unnecessary ones deleted.</p>
+                    <p><strong>Animation, content, and site load:</strong> Several interactive elements are presented on the main page: coloring animations, animations related to scrolling the feed, various pop-up elements and parallax effects in the backend itself. There is also a certain amount of video files (both in this and in the second version of the design), some of them are loaded directly into the site, some to third-party services. Filling the site with such animations and videos is a plus for the visual style, but excessive use of this can affect the "weight" of the site and its response. In the conditions of a catalog site, site overload is even more relevant, since in addition to design, we will also have a large number of files related to equipment or a blog. Therefore, we will carefully approach ensuring that the site is not overloaded and works well. Beautiful animations or heavy files such as video are reasonable to use on the start page, since the HOME page is practically the "face" of the site - the first thing the client sees. But in other sections of the site, there will be fewer heavy elements so as not to overload the site with unnecessary weight. By the way, complex animations are not what a catalog primarily needs; functionality and clarity are important there, so further we will create a design that will simply be pleasant for the user to manage, without any unnecessary "wow effects" there. In extreme cases, if it is necessary - we will consider the possibility of connecting a site loading screen, this is a rather pleasant element that can also play in favor of the premium appearance.</p>
+                </div>
+                <p class="thank-you-message">Thanks for watching!</p>
+                <img src="9.png" alt="Concluding Logos" class="final-logos">
+            </div>
+        </div> <!-- End of page-container -->
+    </div> <!-- End of main-content-area -->
+
+    <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top">↑</button>
+
+    <script>
+        // Get the button
+        let mybutton = document.getElementById("backToTopBtn");
+        let topNav = document.getElementById("topNav");
+        let mainContent = document.querySelector(".main-content-area");
+        let navHeight = 0;
+
+        if (topNav) {
+            navHeight = topNav.offsetHeight;
+            // Adjust padding of main content area dynamically if nav is sticky and has variable height (e.g. due to wrapping)
+            // For simpler fixed height nav, a static CSS padding would suffice.
+            // mainContent.style.paddingTop = navHeight + 'px'; // This is better for dynamic height
+        }
+        
+        // Adjust scroll-margin-top for all sections to account for sticky nav
+        document.querySelectorAll('.section, .intro-paragraphs').forEach(function(section) {
+            section.style.scrollMarginTop = navHeight + 10 + 'px'; // 10px extra spacing
+        });
+         // Also for the very top for the "Intro" link
+        let pageTopAnchor = document.getElementById("pageTop");
+        if(pageTopAnchor) {
+            pageTopAnchor.style.scrollMarginTop = navHeight + 10 + 'px';
+        }
+
+
+        // When the user scrolls down 200px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function scrollToTop() {
+            // document.body.scrollTop = 0; // For Safari
+            // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            // For smooth scroll, rely on html { scroll-behavior: smooth; } and use:
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Optional: Active state for navigation links based on scroll position
+        // This is a bit more complex and might be overkill for a static presentation.
+        // For simplicity, I'm omitting it, but it's a common feature.
+    </script>
+
+</body>
+</html>
